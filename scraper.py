@@ -17,10 +17,6 @@ allowed_domains = [
     ".informatics.uci.edu",
     ".stat.uci.edu",
 ]
-blocked_domains = [
-    "wics.ics.uci.edu",
-    "grape.ics.uci.edu"
-]
 
 
 # English stopwords were sourced from https://www.ranks.nl/stopwords
@@ -146,8 +142,6 @@ def is_valid(url):
         if not parsed.hostname:
             return False
         if not any(parsed.hostname.endswith(d) for d in allowed_domains):
-            return False
-        if any(parsed.hostname == d for d in blocked_domains):
             return False
 
         return not re.match(
