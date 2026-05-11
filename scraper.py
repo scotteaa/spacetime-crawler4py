@@ -122,16 +122,12 @@ def is_valid(url):
     # There are already some conditions that return False.
 
     # Extremely long urls could indicate a trap
-    if len(url) > 250:
+    if len(url) > 300:
         return False
 
     try:
         parsed = urlparse(url)
         if parsed.scheme not in {"http", "https"}:
-            return False
-
-        # Too many queries could also indicate a trap
-        if len(parsed.query.split('&')) > 10:
             return False
 
         # Any pages with calendar/event notation (inf loops) should be disregarded
