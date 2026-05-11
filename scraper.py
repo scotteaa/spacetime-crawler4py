@@ -78,13 +78,16 @@ def extract_next_links(url, resp):
         if not href:
             continue
 
-        # Constructs the complete url, disregarding queries/fragments
-        full_url = urljoin(url, href)
-        parsed = urlparse(full_url)
-        final_url = urlunparse(parsed._replace(query="", fragment=""))
+        try:
+            # Constructs the complete url, disregarding queries/fragments
+            full_url = urljoin(url, href)
+            parsed = urlparse(full_url)
+            final_url = urlunparse(parsed._replace(query="", fragment=""))
 
-        # Adds to list of urls found on the webpage
-        hyperlinks.add(final_url)
+            # Adds to list of urls found on the webpage
+            hyperlinks.add(final_url)
+        except (ValueError, TypeError):
+            continue
 
     # Regex pattern creates tokens out of webpage contents
     tokens = re.findall(r'[a-zA-Z0-9]+', soup.get_text().lower())
