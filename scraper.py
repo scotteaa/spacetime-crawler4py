@@ -122,7 +122,7 @@ def is_valid(url):
     # There are already some conditions that return False.
 
     # Extremely long urls could indicate a trap
-    if len(url) > 200:
+    if len(url) > 250:
         return False
 
     try:
@@ -131,7 +131,7 @@ def is_valid(url):
             return False
 
         # Too many queries could also indicate a trap
-        if len(parsed.query.split('&')) > 5:
+        if len(parsed.query.split('&')) > 10:
             return False
 
         # Any pages with calendar/event notation (inf loops) should be disregarded
