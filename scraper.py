@@ -19,7 +19,6 @@ allowed_domains = [
 ]
 blocked_domains = [
     "wics.ics.uci.edu",
-    "ngs.ics.uci.edu",
     "grape.ics.uci.edu"
 ]
 
@@ -70,7 +69,7 @@ def extract_next_links(url, resp):
     if 'text/html' not in content_type:
         return list()
 
-    # Checks that pages that aren't overly long (10 MB cutoff)
+    # Checks that pages aren't overly long (10 MB cutoff)
     content_length = resp.raw_response.headers.get('Content-Length')
     if content_length and int(content_length) > 10000000: # 10 MB in bytes
         return list()
@@ -170,6 +169,6 @@ def crawler_report():
         f.write("50 most common words:\n")
         for word, count in word_counts.most_common(50):
             f.write(f"{word}: {count}\n")
-        f.write("Subdomains:\n")
+        f.write(f"Subdomains: {len(subdomains)}\n")
         for subdomain in sorted(subdomains.keys()):
             f.write(f"{subdomain}, {len(subdomains[subdomain])}\n")
