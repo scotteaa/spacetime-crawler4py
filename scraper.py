@@ -143,6 +143,8 @@ def is_valid(url):
             return False
 
         # Makes sure the domain is allowed before validating
+        if not parsed.hostname:
+            return False
         if not any(parsed.hostname.endswith(d) for d in allowed_domains):
             return False
         if any(parsed.hostname == d for d in blocked_domains):
