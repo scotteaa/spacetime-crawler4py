@@ -155,8 +155,11 @@ def is_valid(url):
             + r"|rm|smil|wmv|swf|wma|zip|rar|gz)$", parsed.path.lower())
 
     except TypeError:
-        print ("TypeError for ", parsed)
-        raise
+        print ("TypeError for ", url)
+        return False
+    except ValueError:
+        print ("ValueError for ", url)
+        return False
 
 def crawler_report():
     with open("report.txt", "w") as f:
