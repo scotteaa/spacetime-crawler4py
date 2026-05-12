@@ -70,6 +70,10 @@ def extract_next_links(url, resp):
     if content_length and int(content_length) > 10000000: # 10 MB in bytes
         return list()
 
+    # Checks that the page hasn't already been visited
+    if url in unique_pages:
+        return list()
+
     # Uses beautifulsoup to easily obtain content from html page
     soup = BeautifulSoup(resp.raw_response.content, 'lxml')
     # Links are organized under an <a> tag
