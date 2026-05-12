@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse, urldefrag, urljoin, urlunparse
+from urllib.parse import urlparse, urljoin, urlunparse
 import utils.response
 from bs4 import BeautifulSoup
 from collections import Counter
@@ -89,17 +89,21 @@ def extract_next_links(url, resp):
         except (ValueError, TypeError):
             continue
 
+    # Prevents malformed webpage from being tokenized
+    if "~cs224" in url:
+        return list(hyperlinks)
+
     # Regex pattern creates tokens out of webpage contents
     tokens = re.findall(r'[a-zA-Z0-9]+', soup.get_text().lower())
 
     # Checks whether the webpage has enough content
-    word_count = len(tokens)
-    if word_count < 50:
+    page_length = len(tokens)
+    if page_length < 50:
         return list(hyperlinks)
 
     # Compares the current webpage against the longest recorded page
-    if word_count > longest_page[1]:
-        longest_page = (url, word_count)
+    if page_length > longest_page[1]:
+        longest_page = (url, page_length)
 
     # Updates word counts after removing stopwords/letters from page tokens
     filtered = [t for t in tokens if t not in stopwords and len(t) > 1]
