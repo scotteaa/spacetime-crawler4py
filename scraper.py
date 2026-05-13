@@ -137,8 +137,7 @@ def is_valid(url):
         # Any pages with calendar/event notation (inf loops) should be disregarded
         if (re.search(r'/\d{4}/\d{2}/', parsed.path) or
             re.search(r'\d{4}-\d{2}-\d{2}', parsed.path) or
-            'calendar' in parsed.path.lower() or
-            'events' in parsed.path.lower()):
+            'calendar' in parsed.path.lower()):
             return False
 
         # Makes sure the domain is allowed before validating
