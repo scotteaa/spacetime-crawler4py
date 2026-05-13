@@ -129,10 +129,6 @@ def is_valid(url):
     # If you decide to crawl it, return True; otherwise return False.
     # There are already some conditions that return False.
 
-    # Extremely long urls could indicate a trap
-    if len(url) > 300:
-        return False
-
     try:
         parsed = urlparse(url)
         if parsed.scheme not in {"http", "https"}:
