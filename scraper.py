@@ -65,9 +65,9 @@ def extract_next_links(url, resp):
     if 'text/html' not in content_type:
         return list()
 
-    # Checks that pages aren't overly long (10 MB cutoff)
+    # Checks that pages aren't overly long (20 MB cutoff)
     content_length = resp.raw_response.headers.get('Content-Length')
-    if content_length and int(content_length) > 10000000: # 10 MB in bytes
+    if content_length and int(content_length) > 20000000: # 20 MB in bytes
         return list()
 
     # Checks that the page hasn't already been visited
